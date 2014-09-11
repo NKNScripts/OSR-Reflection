@@ -44,6 +44,37 @@ begin
   result := C;
 end;
 
+function TBankingAPI.close(option:Integer):boolean;
+var
+  Bank:TWidget;
+  tmp:TWidgetArray;
+  i:Integer;
+begin
+  if(option = BANK_INTERFACE) then
+  begin
+    if(not(Self.isOpen(BANK_INTERFACE))) then
+      Exit(1);
+    Bank := widgetAPI.getWidgetIndex(option,BANK_BUTTONS, BANK_CLOSE_BUTTON);
+    if(Bank.isValid) then
+    begin
+      rsInput.box(Bank.getBounds,mouse_left);
+      Result := true;
+    end;
+    Bank.free();
+  end else if(option = DEPOSITBOX_INTERFACE) then
+  begin
+    Bank := widgetAPI.getWidgetIndex(option, DEPOSITBOX_CLOSE_BUTTON);
+    if(Bank.isValid) then
+    begin
+      rsInput.box(Bank.getBounds,mouse_left);
+      Result := true;
+    end;
+    Bank.free();
+  end;
+
+end;
+
+
 
 
 
